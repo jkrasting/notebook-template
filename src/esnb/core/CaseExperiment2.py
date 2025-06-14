@@ -3,10 +3,12 @@ import logging
 from pathlib import Path
 
 import intake
+import intake_esm
 from esnb import sites
 from esnb.core.mdtf import MDTFCaseSettings
 
 from . import html
+from . import util
 
 logger = logging.getLogger(__name__)
 
@@ -155,6 +157,15 @@ class CaseExperiment2(MDTFCaseSettings):
             err = f"Encountered unrecognized source mode: {mode}"
             loggger.error(err)
             raise RuntimeError(err)
+
+        # Convert catalog `time_range` to tuple of datetime objects
+        if isinstance(self.catalog, intake_esm.core.esm_datastore):
+            logger.debug(
+                f"Converting time range in {self.name} catalog to datetime object"
+            )
+            self.catalog.df["time_range"] = self.catalog.df["time_range"].apply(
+                util.process_time_string
+            )
 
     def _repr_html_(self):
         result = html.gen_html_sub()
