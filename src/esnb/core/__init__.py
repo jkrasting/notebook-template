@@ -13,6 +13,9 @@ except:
     pass
 
 
+from . import util2
+
+
 class NoAliasDumper(yaml.SafeDumper):
     def ignore_aliases(self, data):
         return True

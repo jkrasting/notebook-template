@@ -1,6 +1,6 @@
 import logging
-import sys
 import os
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -53,13 +53,10 @@ formatter = ColorFormatter(format_str)
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-from . import core
-
-from .core.RequestedVariable import RequestedVariable
+from . import core, sites
 from .core.CaseExperiment import CaseExperiment
 from .core.CaseExperiment2 import CaseExperiment2
-from .core.NotebookDiagnostic import NotebookDiagnostic
 from .core.CaseGroup import CaseGroup
 from .core.esnb_datastore import esnb_datastore
-
-from . import sites
+from .core.NotebookDiagnostic import NotebookDiagnostic
+from .core.RequestedVariable import RequestedVariable
